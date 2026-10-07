@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Customs — App Check (Problem 11)</title>
+<style>
+  :root {
+    --yale-blue: #00356b;
+    --ink: #1f2933;
+    --muted: #5f6b7a;
+    --line: #e3e7ed;
+    --soft: #f5f7fa;
+    --ok: #1e7a46;
+    --ok-bg: #e5f4ea;
+    --warn: #8a5a00;
+    --warn-bg: #fdf1d8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.6;
+  }
+  header {
+    background: var(--yale-blue);
+    color: #fff;
+    padding: 40px 24px 32px;
+  }
+  header .wrap, main { max-width: 1080px; margin: 0 auto; }
+  header h1 { margin: 0 0 6px; font-size: 30px; }
+  header p { margin: 0; opacity: 0.85; }
+  main { padding: 32px 24px 64px; }
+  h2 { color: var(--yale-blue); font-size: 22px; margin: 0; }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .meta div { background: var(--soft); border-radius: 8px; padding: 12px 16px; }
+  .meta b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  td a { color: var(--yale-blue); }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.ok { background: var(--ok-bg); color: var(--ok); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn); }
+  section.check {
+    border-top: 3px solid var(--yale-blue);
+    padding-top: 20px;
+    margin-top: 48px;
+  }
+  .check-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  .what { color: var(--muted); margin: 0 0 20px; }
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .shots.single { grid-template-columns: minmax(220px, 300px); }
+  figure { margin: 0; }
+  figure a { display: block; }
+  figure img {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  figcaption b { color: var(--ink); }
+  .commentary {
+    background: var(--soft);
+    border-left: 4px solid var(--yale-blue);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+  }
+  .commentary h3 { margin: 0 0 8px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--yale-blue); }
+  .commentary p { margin: 0 0 10px; }
+  .commentary p:last-child, .commentary ul:last-child { margin-bottom: 0; }
+  .commentary ul { margin: 0 0 10px; padding-left: 20px; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; padding: 24px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Campus Customs: App Check</h1>
+    <p>Problem 11: a hands-on review of the shop assistant in the running app</p>
+  </div>
+</header>
+
+<main>
+  <div class="meta">
+    <div><b>Tested by</b>William Siagian</div>
+    <div><b>Date</b>7 October 2026</div>
+    <div><b>Account</b>Handsome Dan (second test account, logged in)</div>
+    <div><b>Assistant model</b>GPT-6 Luna via Portkey</div>
+  </div>
+
+  <h2 style="margin-bottom:12px">Summary</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Check</th><th>Result</th><th>Key finding</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><a href="#inventory">Inventory level</a></td>
+        <td><span class="badge warn">Accurate, cluttered</span></td>
+        <td>Stock answers are correct. However, the same product card and the suggestion chips repeat after every reply and crowd the chat window.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><a href="#search-cards">Dynamic search-result cards</a></td>
+        <td><span class="badge ok">Works as intended</span></td>
+        <td>Relevant cards show the price and the sold-out sizes, and each card opens the full product pop-up.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><a href="#alternatives">Usability: alternatives for sold-out sizes</a></td>
+        <td><span class="badge ok">Works, with a refinement</span></td>
+        <td>It offers both other sizes and similar items. For school-specific products, it should favour the same school's item first.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ───────────────────────── Check 1 ───────────────────────── -->
+  <section class="check" id="inventory">
+    <div class="check-head">
+      <h2>1. Inventory Level</h2>
+      <span class="badge warn">Accurate, cluttered</span>
+    </div>
+    <p class="what">Can the assistant report the stock of a specific product, size by size, across a multi-turn conversation?</p>
+
+    <div class="shots">
+      <figure>
+        <a href="app_check_images/inventory-1-search.png"><img src="app_check_images/inventory-1-search.png" alt="Assistant reports 11 men's quarter-zips"></a>
+        <figcaption><b>1.</b> I ask for the stock of men's quarter-zips. The assistant finds 11 matching products.</figcaption>
+      </figure>
+      <figure>
+        <a href="app_check_images/inventory-2-product.png"><img src="app_check_images/inventory-2-product.png" alt="Price, colours and size availability for the School of Engineering 1/4 Zip"></a>
+        <figcaption><b>2.</b> I choose the School of Engineering 1/4 Zip. The assistant gives its price ($72.00), its colours, and which sizes are sold out or available.</figcaption>
+      </figure>
+      <figure>
+        <a href="app_check_images/inventory-3-in-stock.png"><img src="app_check_images/inventory-3-in-stock.png" alt="Follow-up stock question; product card sent again"></a>
+        <figcaption><b>3.</b> I ask a follow-up: "Do you have it in stock?" The answer is correct, but the same product card is sent again.</figcaption>
+      </figure>
+      <figure>
+        <a href="app_check_images/inventory-4-counts.png"><img src="app_check_images/inventory-4-counts.png" alt="Per-size counts: 25 each in XS, L and XL"></a>
+        <figcaption><b>4.</b> The assistant gives exact counts: 25 each in XS, L, and XL (75 in total). The card appears for a third time.</figcaption>
+      </figure>
+      <figure>
+        <a href="app_check_images/inventory-5-size-s.png"><img src="app_check_images/inventory-5-size-s.png" alt="Size S sold out; suggestion chips fill the bottom of the panel"></a>
+        <figcaption><b>5.</b> I ask about size S, which is sold out. The four suggestion chips take up much of the bottom of the panel again.</figcaption>
+      </figure>
+    </div>
+
+    <div class="commentary">
+      <h3>Commentary</h3>
+      <p>The assistant answered every inventory question correctly. It gave the product, its price, the sold-out sizes, and exact per-size counts. All of these match the database: XS, L, and XL have 25 units each, and S, M, and XXL have 0.</p>
+      <p>The presentation, however, needs work:</p>
+      <ul>
+        <li><b>Repeated product cards:</b> the same School of Engineering card was re-sent with every follow-up reply, even though the shopper was still discussing the same item.</li>
+        <li><b>Persistent suggestion chips:</b> the reply options reappeared after each answer and took up a large share of the panel.</li>
+      </ul>
+      <p>Together, these filled the chat window and pushed the conversation out of view. Recommendations:</p>
+      <ul>
+        <li>Show a product card only the first time a product comes up in a conversation.</li>
+        <li>Make the suggestion chips more compact or collapsible.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── Check 2 ───────────────────────── -->
+  <section class="check" id="search-cards">
+    <div class="check-head">
+      <h2>2. Dynamic Search-Result Cards</h2>
+      <span class="badge ok">Works as intended</span>
+    </div>
+    <p class="what">When a shopper asks for a category, does the chat show relevant product cards that lead to the product details?</p>
+
+    <div class="shots">
+      <figure>
+        <a href="app_check_images/search-cards-1.png"><img src="app_check_images/search-cards-1.png" alt="Search reply with a row of quarter-zip product cards"></a>
+        <figcaption><b>6.</b> A category search ("1/4 zip for men") returns a scrollable row of matching product cards beneath the reply.</figcaption>
+      </figure>
+      <figure>
+        <a href="app_check_images/search-cards-2.png"><img src="app_check_images/search-cards-2.png" alt="Cards showing name, price, short description and sold-out sizes"></a>
+        <figcaption><b>7.</b> Each card shows the photo, name, price, a short description, and the sizes that are sold out.</figcaption>
+      </figure>
+    </div>
+
+    <div class="commentary">
+      <h3>Commentary</h3>
+      <p>The search returned several products that match the requested category. Each card shows the product photo, name, price, a short description, and which sizes are sold out, so the shopper can compare options at a glance.</p>
+      <p>Clicking a card opens the product pop-up with the full details: photos, title, price, description, and size options. This takes the shopper straight from the conversation to the product.</p>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── Check 3 ───────────────────────── -->
+  <section class="check" id="alternatives">
+    <div class="check-head">
+      <h2>3. Usability Feature: Alternatives for Sold-Out Sizes</h2>
+      <span class="badge ok">Works, with a refinement</span>
+    </div>
+    <p class="what">When a requested size is sold out, does the assistant offer useful alternatives rather than a dead end?</p>
+
+    <div class="shots single">
+      <figure>
+        <a href="app_check_images/alternatives.png"><img src="app_check_images/alternatives.png" alt="Size S sold out; other schools' quarter-zips in S and other sizes offered"></a>
+        <figcaption><b>8.</b> Size S of the School of Engineering 1/4 Zip is sold out. The assistant offers other sizes of the same product and other schools' quarter-zips in size S.</figcaption>
+      </figure>
+    </div>
+
+    <div class="commentary">
+      <h3>Commentary</h3>
+      <p>When the requested size was sold out, the assistant used the <code>suggest_alternatives</code> tool and offered two kinds of options:</p>
+      <ul>
+        <li><b>Other sizes of the same product:</b> XS, L, and XL.</li>
+        <li><b>Similar items in the requested size:</b> the School of Public Health, School of Medicine, and School of Art quarter-zips.</li>
+      </ul>
+      <p>The availability it stated is correct.</p>
+      <p>This approach works well where products in a category differ mainly by colour. In our catalogue, though, quarter-zips differ by school, and shoppers are likely to want their own school's design rather than another school's. The suggestions should therefore put other sizes of the same school's product first. Other schools' items should appear only as a secondary option, or within a school-specific sub-category.</p>
+    </div>
+  </section>
+</main>
+
+<footer>Campus Customs, AI Foundation Homework 4. Screenshots were taken from the running app on 7 October 2026.</footer>
+
+</body>
+</html>

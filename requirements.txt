@@ -1,0 +1,12 @@
+# Backend (FastAPI + PydanticAI agent). Install from the hw4/ folder:
+#   python3 -m venv backend/.venv && backend/.venv/bin/pip install -r requirements.txt
+# Versions are the ones the project was built and tested with (Python 3.13).
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+pydantic==2.13.5
+pydantic-ai-slim[openai]==2.54.0
+openai==3.24.0
+httpx==0.28.1
+pillow==12.3.0
+numpy==2.5.3
+python-dotenv==1.2.4

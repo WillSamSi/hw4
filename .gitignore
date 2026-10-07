@@ -1,0 +1,33 @@
+# ---- Secrets & local settings (copy .env.example → .env) ----
+.env
+.env.*
+!.env.example
+
+# ---- Local-only data pack: put it at hw4/data/ (see README.md) ----
+#   data/campus_customs.db   the SQLite catalogue, inventory, users, chats
+#   data/products/           product images referenced by the catalogue
+data/
+*.db
+*.db-journal
+
+# ---- Test-account passwords (local only) ----
+TEST_ACCOUNTS.md
+
+# ---- Product photo copies used as image-generation sources (no product images in git) ----
+output/model_photo_sources/**/*.jpg
+output/model_photo_sources/**/*.jpeg
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+backend/.image_cache/
+
+# ---- Node / Vite ----
+node_modules/
+frontend/dist/
+
+# ---- Temp, OS, editor ----
+*.tmp
+.DS_Store
+.claude/
